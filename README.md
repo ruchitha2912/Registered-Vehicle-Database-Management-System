@@ -52,6 +52,8 @@ Administrators can generate reports which includes registration statistics,
 violation trends, and accident summaries.
 
 
+
+
 **Dependencies:**
 python -m pip install --upgrade pip "\n"
 pip install flask
