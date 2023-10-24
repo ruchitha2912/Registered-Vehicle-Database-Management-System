@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Yogadeepa@210",
+    password="password",
     database="registered_vehicles"
 )
 if db.is_connected():
