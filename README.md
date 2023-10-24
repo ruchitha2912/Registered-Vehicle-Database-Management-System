@@ -56,7 +56,10 @@ violation trends, and accident summaries.
 The packages can be installed using the commands given below:
 
 python -m pip install --upgrade pip
+
 pip install flask
+
 pip install mysql-connector-python --index-url=https://pypi.org/simple --trusted-host pypi.python.org
+
 pip download mysql-connector-python
 
