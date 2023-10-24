@@ -14,39 +14,39 @@ and addresses. Furthermore, they can also access a wealth of information about
 their vehicles including license details, maintenance records, insurance policies,
 inspection reports, and accident records.
 
-**Vehicle Maintenance Records**
+**Vehicle Maintenance Records:**
 Owners will be able to record and update maintenance records for their vehicles,
 including service dates, service type, and cost just by entering the vehicle ID. The
 system will provide maintenance history for each vehicle.
 
-**Driver's License Management**
+**Driver's License Management:**
 Vehicle owners will be able to associate driver's license information with their
 profiles, including license number and expiration date. The system will also send
 renewal reminders.
 
-**Vehicle Registration Renewal**
+**Vehicle Registration Renewal:**
 Vehicle owners will receive reminders for registration renewal.
 Registered Vehicle Management System
 
-**Violation Tracking**
+**Violation Tracking:**
 Administrators will be able to record traffic violations, including date, time,
 location, and violation type. Vehicle owners will be notified of violations and the
 amount of fine that must be deposited within the due date.
 
-**Accident Reporting**
+**Accident Reporting:**
 Vehicle owners will be able to report accidents, including date, location, license
 number. Insurance information can be accessed with the help of vehicle ID
 mentioned by the user.
 
-**Vehicle Inspection Records**
+**Vehicle Inspection Records:**
 Owners will be able to view the inspection details, including inspection date and
 results.
 
-**Insurance Management**
+**Insurance Management:**
 Vehicle owners will be able to associate insurance policies with their vehicles,
 including policy number, coverage details, and expiration date. The system will
 also send insurance renewal reminders.
 
-**Reporting and Analytics**
+**Reporting and Analytics:**
 Administrators can generate reports which includes registration statistics,
 violation trends, and accident summaries.
