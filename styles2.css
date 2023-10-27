@@ -1,0 +1,36 @@
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.navbar {
+    background-color: #007bff;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.table {
+    background-color: #ffffff;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered thead th, .table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.075);
+}
