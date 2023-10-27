@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 import mysql.connector
 
 app = Flask(__name__)
@@ -16,17 +16,23 @@ if db.is_connected():
 else:
     print("Failed to connect to the database")
 
-
-
 cursor = db.cursor()
 
 @app.route('/')
 def index():
-    # Fetch data from the database
-    cursor.execute("SELECT * FROM Vehicle")
-    columns = [desc[0] for desc in cursor.description]
-    data = cursor.fetchall()
-    return render_template('index.html', columns=columns, data=data)
+    return render_template('index2.html')
+
+@app.route('/execute_query')
+
+def execute_query():
+    try:
+        query = request.args.get('query')
+        cursor.execute(query)
+        columns = [column[0] for column in cursor.description]
+        result = cursor.fetchall()
+        return render_template('index2.html', columns=columns, rows=result, query=query)
+    except mysql.connector.Error as error:
+        return render_template('index2.html', error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
