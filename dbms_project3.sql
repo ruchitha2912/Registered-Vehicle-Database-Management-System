@@ -7,32 +7,33 @@ Owner_id VARCHAR(30) PRIMARY KEY,
 Owner_name VARCHAR(255) NOT NULL,
 Owner_phone VARCHAR(30) NOT NULL,
 License_number VARCHAR(30) NOT NULL,
+Owner_mail VARCHAR(30) NOT NULL,
 Gender CHAR(1) NOT NULL,
 Address TEXT NOT NULL,
 Dob DATE NOT NULL
 );
 
-INSERT INTO Owners (Owner_id, Owner_name, License_number, Owner_phone, Gender, Address, Dob)
+INSERT INTO Owners (Owner_id, Owner_name, Owner_phone, License_number,Owner_mail, Gender, Address, Dob)
 VALUES
-    ('1', 'John Smith', '555-123-4567', 'LIC12345', 'M', '123 Main St, Anytown, USA', '1990-05-15'),
-    ('2', 'Jane Doe', '555-987-6543', 'LIC54321', 'F', '456 Elm St, Othertown, USA', '1985-09-22'),
-    ('3', 'Michael Johnson', '555-555-5555', 'LIC78901', 'M', '789 Oak St, Differenttown, USA', '1978-03-10'),
-    ('4', 'Sarah White', '555-333-2222', 'LIC45678', 'F', '321 Maple St, Anothertown, USA', '1995-12-07'),
-    ('5', 'Robert Brown', '555-777-8888', 'LIC23456', 'M', '555 Pine St, Nearbytown, USA', '1980-07-18'),
-    ('6', 'Lisa Johnson', '555-222-3333', 'LIC98765', 'F', '987 Cedar St, Farawaytown, USA', '1987-02-25'),
-    ('7', 'Daniel Lee', '555-444-9999', 'LIC65432', 'M', '654 Birch St, Distanttown, USA', '1992-11-30'),
-    ('8', 'Emily Clark', '555-666-1111', 'LIC87654', 'F', '222 Spruce St, Remoteville, USA', '1975-06-03');
+    ('1', 'John Smith', '555-123-4567', 'LIC12345', 'johnsmith77@gmail.com','M', '123 Main St, Anytown, USA', '1990-05-15'),
+    ('2', 'Jane Doe', '555-987-6543', 'LIC54321','janedoe@gmail.com','F', '456 Elm St, Othertown, USA', '1985-09-22'),
+    ('3', 'Michael Johnson', '555-555-5555', 'LIC78901','mike534johnson@gmail.com' ,'M', '789 Oak St, Differenttown, USA', '1978-03-10'),
+    ('4', 'Sarah White', '555-333-2222', 'LIC45678','sarahwhitewalter@gmail.com','F', '321 Maple St, Anothertown, USA', '1995-12-07'),
+    ('5', 'Robert Brown', '555-777-8888', 'LIC23456','robertryan@gmail.com' ,'M', '555 Pine St, Nearbytown, USA', '1980-07-18'),
+    ('6', 'Lisa Johnson', '555-222-3333', 'LIC98765','lisarose@gmail.com' ,'F', '987 Cedar St, Farawaytown, USA', '1987-02-25'),
+    ('7', 'Daniel Lee', '555-444-9999', 'LIC65432','danpotterlee@gmail.com' ,'M', '654 Birch St, Distanttown, USA', '1992-11-30'),
+    ('8', 'Emily Clark', '555-666-1111', 'LIC87654','emilyrossgeller@gmail.com' ,'F', '222 Spruce St, Remoteville, USA', '1975-06-03');
 
 CREATE TABLE IF NOT EXISTS License(
 License_number VARCHAR(30) PRIMARY KEY,
 Owner_id VARCHAR(30),
 Issue_date DATE NOT NULL,
-Expiry_date DATE NOT NULL,
+Expiration_date DATE NOT NULL,
 Vehicle_type TEXT,
 FOREIGN KEY (Owner_id) REFERENCES Owners(Owner_id)
 );
 
-INSERT INTO License (License_number, Owner_id, Issue_date, Expiry_date, Vehicle_type)
+INSERT INTO License (License_number, Owner_id, Issue_date, Expiration_date, Vehicle_type)
 VALUES
     ('LIC12345', '1', '2022-03-15', '2023-03-14', 'Car'),
     ('LIC54321', '2', '2022-05-20', '2023-05-19', 'Motorcycle'),
@@ -44,6 +45,24 @@ VALUES
     ('LIC87654', '8', '2022-07-09', '2023-07-08', 'Car'),
     ('LIC34567', '1', '2022-10-12', '2023-10-11', 'Motorcycle'),
     ('LIC56789', '2', '2022-11-28', '2023-11-27', 'Car');
+
+ALTER TABLE License
+ADD COLUMN email_notification_sent BOOLEAN DEFAULT FALSE;
+
+DELIMITER //
+CREATE TRIGGER after_license_update
+AFTER UPDATE ON License
+FOR EACH ROW
+BEGIN
+    IF NEW.Expiry_date <= CURDATE() AND NEW.email_notification_sent = FALSE THEN
+        UPDATE License
+        SET email_notification_sent = TRUE
+        WHERE License_number = NEW.License_number;
+    END IF;
+END;
+//
+DELIMITER ;
+
 
 
 CREATE TABLE IF NOT EXISTS Vehicle(
