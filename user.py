@@ -28,7 +28,7 @@ def get_tables(cursor, operation):
     cursor.execute("SHOW TABLES;")
     tables = [table[0] for table in cursor.fetchall()]
     if operation == 'Update data':
-        relevant_tables = ['owners', 'insurance','credentials']
+        relevant_tables = ['owners', 'insurance', 'credentials']
         return [table for table in tables if table in relevant_tables]
     if operation == 'Insert data':
         relevant_tables = ['maintenance']
@@ -52,7 +52,7 @@ def get_column_names(db, table_name):
 def fetch_all_data(conn, table, owner_id):
 
     owner_id_tables = ['owners', 'registration',
-            'license', 'vehicle', 'insurance']
+                       'license', 'vehicle', 'insurance']
     vehicle_id_tables = ['violation', 'accident', 'maintenance', 'inspection']
 
     cursor = conn.cursor()
@@ -62,7 +62,7 @@ def fetch_all_data(conn, table, owner_id):
     if table in owner_id_tables:
         query = f"SELECT * FROM {table} WHERE owner_id = {owner_id}"
         # result = pd.read_sql_query(query, conn)
-    
+
     if table == 'credentials':
         query = f"SELECT * from credentials WHERE  username = {owner_id}"
     if table in vehicle_id_tables:
@@ -157,30 +157,31 @@ def update_data(db, cursor, table, columns, owner_id):
         if update_button:
             db.commit()
             st.success(f'Data updated successfully for {table}.')
-        
+
     if table == 'credentials':
-        old_pass = st.text_input('Enter old password:',type='password')
+        old_pass = st.text_input('Enter old password:', type='password')
         query = f'SELECT password from credentials WHERE username = {owner_id}'
         cursor.execute(query)
         result = cursor.fetchone()
         if result:  # If a record with the given username is found
             stored_password = result[0]
             if old_pass == stored_password:
-                new_pass = st.text_input('Enter new password:',type='password')
-                confirm_pass = st.text_input('Confirm new password:',type='password')
+                new_pass = st.text_input(
+                    'Enter new password:', type='password')
+                confirm_pass = st.text_input(
+                    'Confirm new password:', type='password')
                 if new_pass and confirm_pass:
                     if new_pass == confirm_pass:
                         update_query = f"UPDATE credentials SET password = '{new_pass}' WHERE username = {owner_id}"
                         cursor.execute(update_query)
-                        print("---------->",update_query)
+                        print("---------->", update_query)
                         if st.button('Update'):
                             db.commit()
                             st.success("Password updated successfully!")
                     else:
-                       st.error("Passwords don't match. Please try again.")
+                        st.error("Passwords don't match. Please try again.")
             else:
-                st.warning("Incorrect password entered. Please try again.")      
-        
+                st.warning("Incorrect password entered. Please try again.")
 
     elif table == 'insurance':
         # Allow users to update all columns
